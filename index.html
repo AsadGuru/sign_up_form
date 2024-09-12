@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .form-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-group .error {
+            color: red;
+            font-size: 12px;
+            display: block;
+        }
+
+        .form-group .success {
+            color: green;
+            font-size: 12px;
+            display: block;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Signup Form</h1>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+                <span id="emailError" class="error"></span>
+                <span id="emailSuccess" class="success"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+                <span id="passwordError" class="error"></span>
+                <span id="passwordSuccess" class="success"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="button" onclick="handleSubmit()">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateEmail() {
+            var email = document.getElementById('email').value;
+            var emailError = document.getElementById('emailError');
+            var emailSuccess = document.getElementById('emailSuccess');
+
+            if (email.length > 3 && email.includes('@') && email.includes('.')) {
+                emailError.textContent = '';
+                emailSuccess.textContent = 'All good to go!';
+            } else {
+                emailError.textContent = 'Invalid email. Ensure it has more than 3 characters and contains "@" and "."';
+                emailSuccess.textContent = '';
+            }
+        }
+
+        function validatePassword() {
+            var password = document.getElementById('password').value;
+            var passwordError = document.getElementById('passwordError');
+            var passwordSuccess = document.getElementById('passwordSuccess');
+
+            if (password.length > 8) {
+                passwordError.textContent = '';
+                passwordSuccess.textContent = 'All good to go!';
+            } else {
+                passwordError.textContent = 'Password must be more than 8 characters';
+                passwordSuccess.textContent = '';
+            }
+        }
+
+        function handleSubmit() {
+            var emailError = document.getElementById('emailError').textContent;
+            var passwordError = document.getElementById('passwordError').textContent;
+
+            if (emailError === '' && passwordError === '') {
+                var confirmation = confirm('Do you want to submit the form?');
+                if (confirmation) {
+                    alert('Successful signup!');
+                } else {
+                    // Clear all input values and messages
+                    document.getElementById('signupForm').reset();
+                    initializeForm();
+                }
+            } else {
+                alert('Please correct the errors before submitting.');
+            }
+        }
+
+        function initializeForm() {
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('emailSuccess').textContent = '';
+            document.getElementById('passwordSuccess').textContent = '';
+        }
+
+        // Initialize the form on page load
+        window.onload = initializeForm;
+
+        document.getElementById('email').addEventListener('input', validateEmail);
+        document.getElementById('password').addEventListener('input', validatePassword);
+    </script>
+</body>
+</html>
+
+
